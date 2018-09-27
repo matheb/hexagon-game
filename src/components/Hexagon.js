@@ -3,22 +3,21 @@ import Konva from 'konva';
 import { Stage, Layer, RegularPolygon } from 'react-konva';
 
 class Hexagon extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
-            <Stage width={window.innerWidth} height={window.innerHeight}>
-                <Layer>
-                    <RegularPolygon
-                        x={100}
-                        y={150}
-                        sides={6}
-                        radius={70}
-                        fill='red'
-                        stroke='black'
-                        strokeWidth={2}
-                    ></RegularPolygon>
-                </Layer>
-            </Stage>
-
+            <RegularPolygon
+                x={this.props.x}
+                y={this.props.y}
+                sides={6}
+                radius={this.props.radius}
+                fill='red'
+                stroke='black'
+                strokeWidth={1}
+            ></RegularPolygon>
         );
     }
 }
