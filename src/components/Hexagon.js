@@ -13,16 +13,16 @@ class Hexagon extends React.Component {
                 x={this.props.x}
                 y={this.props.y}
                 sides={6}
-                radius={this.props.radius}
+                radius={this.props.r}
                 fill='red'
                 stroke='black'
-                strokeWidth={1}
-            ></RegularPolygon>
+                strokeWidth={4}
+                rotation={-30}
+            >
+            </RegularPolygon>
         );
     }
 }
-
-// render(<Hexagon />, document.getElementById('container'));
 
 export default Hexagon;
 
