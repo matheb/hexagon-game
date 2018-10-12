@@ -8,8 +8,8 @@ class Board extends React.Component {
         super(props);
         this.drawHexagons = this.drawHexagons.bind(this);
         this.state = {
-            x0: 100,
-            y0: 200,
+            x0: 200,
+            y0: 300,
             n: 1,
             r: 40,
         };
@@ -29,14 +29,12 @@ class Board extends React.Component {
     drawHexagons(n, x, y, r) {
         n += 3;
         let hexagons = [];
-        let layer = this.layer;
-        console.log(layer);
 
         let board = this.createBoard(n, this.state.x0, this.state.y0, r);
 
-        for (let j = 0; j < n; j++) {
+        for (let j = 0; j < board.length; j++) {
             for (let i = 0; i < board[j].length; i++) {
-                if (board[j][i] !== null && board[j][i] !== undefined) {
+                if (board[j][i] && board[j][i][0] !== null) {
                     let x = board[j][i][0];
                     let y = board[j][i][1];
                     hexagons.push(this.renderHexagon(x, y, r));
@@ -44,21 +42,7 @@ class Board extends React.Component {
             }
         }
 
-        console.log(layer);
-
         return hexagons;
-
-        layer.on('mouseover', function(evt) {
-            let box = evt.target;
-            box.fill('#E5FF80');
-            box.draw();
-        });
-        layer.on('mouseout', function(evt) {
-            let box = evt.target;
-            box.fill('red');
-            box.draw();
-        });
-
     }
 
 
@@ -84,7 +68,7 @@ class Board extends React.Component {
                 } else if (j > Math.floor(n/2)) {
                     for (let k = 0; k < n; k++) {
                         let x = p1 + k*(a+a/2);
-                        let y = p2 + 2 * j*(a*ratio/2);
+                        let y = p2 - k*(a*ratio/2);
                         if (k > j - Math.floor(n/2) - 1 ) {
                             board[j][k] = [x, y];
                         }
@@ -100,7 +84,7 @@ class Board extends React.Component {
         for(let i = 0; i < m; i++) {
             let row = [];
             for (let j = 0; j < n; j++) {
-                row.push(new Array(2));
+                row.push([null, null]);
             }
             matrix.push(row);
         }
@@ -116,7 +100,6 @@ class Board extends React.Component {
 
             </Stage>
         )
-
     }
 }
 
