@@ -6,6 +6,7 @@ import Konva from 'konva';
 class Board extends React.Component {
     constructor(props) {
         super(props);
+        this.drawHexagons = this.drawHexagons.bind(this);
         this.state = {
             x0: 100,
             y0: 200,
@@ -28,7 +29,8 @@ class Board extends React.Component {
     drawHexagons(n, x, y, r) {
         n += 3;
         let hexagons = [];
-        let layer = this.refs.baseLayer;
+        let layer = this.layer;
+        console.log(layer);
 
         let board = this.createBoard(n, this.state.x0, this.state.y0, r);
 
@@ -41,20 +43,25 @@ class Board extends React.Component {
                 }
             }
         }
+
+        console.log(layer);
+
         return hexagons;
 
-        // layer.on('mouseover', function(evt) {
-        //     let box = evt.target;
-        //     box.fill('#E5FF80');
-        //     box.draw();
-        // });
-        // layer.on('mouseout', function(evt) {
-        //     let box = evt.target;
-        //     box.fill('red');
-        //     box.draw();
-        // });
+        layer.on('mouseover', function(evt) {
+            let box = evt.target;
+            box.fill('#E5FF80');
+            box.draw();
+        });
+        layer.on('mouseout', function(evt) {
+            let box = evt.target;
+            box.fill('red');
+            box.draw();
+        });
 
     }
+
+
 
     createBoard(n, x0, y0, a) {
         let ratio = 3**0.5;
@@ -103,9 +110,10 @@ class Board extends React.Component {
     render() {
         return (
             <Stage width={window.innerWidth} height={window.innerHeight}>
-                <Layer ref='baseLayer'>
+                <Layer ref={node => this.layer = node}>
                     {this.drawHexagons(this.state.n, this.state.x0, this.state.y0, this.state.r)}
                 </Layer>
+
             </Stage>
         )
 
